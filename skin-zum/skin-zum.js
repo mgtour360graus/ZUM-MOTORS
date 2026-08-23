@@ -2,7 +2,7 @@
   "use strict";
 
   const CONFIG = {
-    version: "1.0.2",
+    version: "1.0.3",
     assetsBase: "skin-zum/assets/",
     logo: "logo-zum.png",
     creditLogo: "logo-exata.png",
@@ -84,6 +84,8 @@
     introCardTimer: null,
     introCardRemovalTimer: null,
     introCardDismissed: false,
+    audioBoundRoot: null,
+    playerControlAttempts: 0,
     previousFocus: null,
     viewportTimer: null,
     navigationToken: 0,
@@ -106,6 +108,12 @@
       '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
     fullscreen:
       '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 4H4v4M16 4h4v4M8 20H4v-4M20 16v4h-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    audioOn:
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 10v4h3l4 3V7l-4 3H5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M15 9.5a4 4 0 0 1 0 5M17.8 7a7 7 0 0 1 0 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    audioOff:
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 10v4h3l4 3V7l-4 3H5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m16 10 4 4M20 10l-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    vr:
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 8.5h15l1.2 6.3a2.5 2.5 0 0 1-4.5 1.9l-1.5-2.2H9.3l-1.5 2.2a2.5 2.5 0 0 1-4.5-1.9l1.2-6.3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8.2" cy="11.8" r="1.8" stroke="currentColor" stroke-width="1.6"/><circle cx="15.8" cy="11.8" r="1.8" stroke="currentColor" stroke-width="1.6"/></svg>',
     close: '<span aria-hidden="true">×</span>',
     menu:
       '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
@@ -169,7 +177,7 @@
     root.appendChild(buildTopbar());
     root.appendChild(buildHero());
     root.appendChild(buildBottomDock());
-    if (state.mode === "desktop") root.appendChild(buildControls());
+    root.appendChild(buildControls());
     root.appendChild(buildWhatsappButton());
     root.appendChild(buildCreditLogo());
     root.appendChild(buildInteractionShield());
@@ -182,6 +190,7 @@
     setActiveAmbiente(state.activeAmbiente, false);
     bindGlobalEvents(root);
     bindTourLifecycle();
+    bindPlayerStateControls();
     syncUiState();
     startIntroCardTimer();
 
@@ -327,16 +336,40 @@
   function buildControls() {
     const controls = createEl("div", "zum-controls");
 
-    const fullscreen = buildIconButton("Tela cheia", icon.fullscreen);
-    fullscreen.addEventListener("click", toggleFullscreen);
-    controls.appendChild(fullscreen);
+    if (state.mode === "desktop") {
+      const fullscreen = buildIconButton("Tela cheia", icon.fullscreen);
+      fullscreen.addEventListener("click", toggleFullscreen);
+      controls.appendChild(fullscreen);
 
-    const mapButton = buildIconButton("Como chegar", icon.map);
-    mapButton.addEventListener("click", openMap);
-    controls.appendChild(mapButton);
+      const mapButton = buildIconButton("Como chegar", icon.map);
+      mapButton.addEventListener("click", openMap);
+      controls.appendChild(mapButton);
 
-    controls.appendChild(buildIconLink(CONFIG.links.avaliacaoGoogle, "Avaliar no Google", icon.star));
+      controls.appendChild(buildIconLink(CONFIG.links.avaliacaoGoogle, "Avaliar no Google", icon.star));
+    }
+
+    controls.appendChild(buildAudioButton());
+    if (state.mode === "mobile") controls.appendChild(buildVrButton());
     return controls;
+  }
+
+  function buildAudioButton() {
+    const button = buildIconButton("Desligar áudio", icon.audioOn, "zum-audio-toggle");
+    button.setAttribute("aria-pressed", "true");
+    button.dataset.audioState = "on";
+    button.addEventListener("click", toggleTourAudio);
+    return button;
+  }
+
+  function buildVrButton() {
+    const button = buildIconButton(
+      "Ativar modo VR",
+      icon.vr + '<span class="zum-vr-label" aria-hidden="true">VR</span>',
+      "zum-vr-trigger"
+    );
+    button.dataset.vrStatus = "ready";
+    button.addEventListener("click", enableTourVr);
+    return button;
   }
 
   function buildWhatsappButton() {
@@ -495,6 +528,157 @@
     return button;
   }
 
+  function getRootPlayer() {
+    const tourInstance = window.tour;
+    if (!tourInstance) return null;
+
+    try {
+      if (typeof tourInstance._getRootPlayer === "function") {
+        return tourInstance._getRootPlayer() || null;
+      }
+      if (tourInstance.player && typeof tourInstance.player.getById === "function") {
+        return tourInstance.player.getById("rootPlayer") || null;
+      }
+    } catch (error) {
+      console.error("[Zum Skin] Não foi possível acessar os controles do player", error);
+    }
+    return null;
+  }
+
+  function runWithRootPlayer(action, unavailableMessage) {
+    let attempts = 0;
+    const tryRun = function () {
+      const rootPlayer = getRootPlayer();
+      if (rootPlayer) {
+        action(rootPlayer);
+        return;
+      }
+
+      attempts += 1;
+      if (attempts < 12) {
+        window.setTimeout(tryRun, 160);
+      } else {
+        showToast(unavailableMessage);
+      }
+    };
+    tryRun();
+  }
+
+  function toggleTourAudio() {
+    runWithRootPlayer(function (rootPlayer) {
+      try {
+        const willMute = !readTourAudioMuted(rootPlayer);
+        setTourAudioMuted(rootPlayer, willMute);
+        syncAudioButton(willMute);
+        showToast(willMute ? "Áudio desligado" : "Áudio ligado");
+      } catch (error) {
+        console.error("[Zum Skin] Falha ao alterar o áudio", error);
+        showToast("Não foi possível alterar o áudio agora.");
+      }
+    }, "O áudio ainda está carregando. Tente novamente.");
+  }
+
+  function getTourAudioObjects(rootPlayer) {
+    if (!rootPlayer || typeof rootPlayer.getByClassName !== "function") return [];
+    try {
+      return Array.prototype.slice.call(rootPlayer.getByClassName("MediaAudio") || []);
+    } catch (error) {
+      console.error("[Zum Skin] Não foi possível listar as mídias de áudio", error);
+      return [];
+    }
+  }
+
+  function readTourAudioMuted(rootPlayer) {
+    const rootMuted = Boolean(rootPlayer.get("mute"));
+    const audios = getTourAudioObjects(rootPlayer);
+    const mediaMuted = audios.some(function (audio) {
+      return Boolean(audio.get("mute"));
+    });
+    return rootMuted || mediaMuted;
+  }
+
+  function setTourAudioMuted(rootPlayer, muted) {
+    rootPlayer.set("mute", muted);
+    getTourAudioObjects(rootPlayer).forEach(function (audio) {
+      audio.set("mute", muted);
+    });
+
+    if (!muted && typeof rootPlayer.resumeGlobalAudios === "function") {
+      rootPlayer.resumeGlobalAudios();
+    }
+  }
+
+  function syncAudioButton(muted) {
+    document.querySelectorAll(".zum-audio-toggle").forEach(function (button) {
+      button.innerHTML = muted ? icon.audioOff : icon.audioOn;
+      button.classList.toggle("is-audio-off", muted);
+      button.dataset.audioState = muted ? "off" : "on";
+      button.setAttribute("aria-pressed", String(!muted));
+      button.setAttribute("aria-label", muted ? "Ligar áudio" : "Desligar áudio");
+      button.title = muted ? "Ligar áudio" : "Desligar áudio";
+    });
+  }
+
+  function bindPlayerStateControls() {
+    const rootPlayer = getRootPlayer();
+    if (!rootPlayer) {
+      state.playerControlAttempts += 1;
+      if (state.playerControlAttempts < 50) window.setTimeout(bindPlayerStateControls, 200);
+      return;
+    }
+
+    syncAudioButton(readTourAudioMuted(rootPlayer));
+    if (state.audioBoundRoot === rootPlayer) return;
+
+    state.audioBoundRoot = rootPlayer;
+    state.playerControlAttempts = 0;
+    const syncFromPlayer = function () {
+      syncAudioButton(readTourAudioMuted(rootPlayer));
+    };
+    if (typeof rootPlayer.bind === "function") {
+      rootPlayer.bind("mute_changed", syncFromPlayer, rootPlayer, true);
+    }
+    getTourAudioObjects(rootPlayer).forEach(function (audio) {
+      if (typeof audio.bind === "function") audio.bind("mute_changed", syncFromPlayer, audio, true);
+    });
+  }
+
+  function enableTourVr() {
+    const button = document.querySelector(".zum-vr-trigger");
+    if (button) button.dataset.vrStatus = "requested";
+
+    runWithRootPlayer(function (rootPlayer) {
+      try {
+        if (typeof rootPlayer.enableVR !== "function") {
+          throw new Error("Função enableVR indisponível");
+        }
+        rootPlayer.enableVR();
+        if (button) button.dataset.vrStatus = "started";
+        showToast("Iniciando modo VR…");
+      } catch (error) {
+        if (button) button.dataset.vrStatus = "unavailable";
+        console.error("[Zum Skin] Falha ao iniciar o modo VR", error);
+        showToast("O modo VR não está disponível neste aparelho.");
+      }
+    }, "O modo VR ainda está carregando. Tente novamente.");
+  }
+
+  function syncNativeAudioChoice(event) {
+    const target = event.target instanceof Element ? event.target : null;
+    if (!target || !/Ativar\s+áudio\?/i.test(document.body.innerText)) return;
+
+    const choice = String(target.textContent || "").trim().toUpperCase();
+    if (choice !== "SIM" && choice !== "NÃO") return;
+
+    const muted = choice === "NÃO";
+    window.setTimeout(function () {
+      runWithRootPlayer(function (rootPlayer) {
+        setTourAudioMuted(rootPlayer, muted);
+        syncAudioButton(muted);
+      }, "O áudio ainda está carregando. Tente novamente.");
+    }, 80);
+  }
+
   function setActiveAmbiente(id, navigate) {
     const ambiente = CONFIG.ambientes.find(function (item) {
       return item.id === id;
@@ -572,6 +756,7 @@
     state.tourLifecycleBound = true;
     const markReady = function () {
       state.tourReady = true;
+      bindPlayerStateControls();
       if (!state.pendingAmbiente) return;
       const pending = state.pendingAmbiente;
       state.pendingAmbiente = null;
@@ -774,6 +959,7 @@
     document.addEventListener("keydown", function (event) {
       if (event.key === "Escape") closeAllPanels();
     });
+    document.addEventListener("click", syncNativeAudioChoice, true);
 
     window.addEventListener("resize", queueViewportUpdate, { passive: true });
     window.addEventListener("orientationchange", queueViewportUpdate, { passive: true });

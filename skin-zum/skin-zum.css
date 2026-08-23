@@ -383,6 +383,38 @@ body.zum-pano-locked #viewer {
   box-shadow: 0 9px 22px rgba(0, 0, 0, 0.22);
 }
 
+.zum-controls .zum-audio-toggle.is-audio-off {
+  border-color: rgba(239, 27, 40, 0.62);
+  background: rgba(119, 10, 18, 0.88);
+  color: #fff;
+}
+
+.zum-controls .zum-vr-trigger[data-vr-status="requested"] {
+  border-color: rgba(255, 255, 255, 0.38);
+  background: rgba(217, 30, 46, 0.72);
+}
+
+.zum-vr-trigger {
+  position: relative;
+}
+
+.zum-vr-trigger svg {
+  transform: translateY(-4px);
+}
+
+.zum-vr-label {
+  position: absolute;
+  right: 0;
+  bottom: 5px;
+  left: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 7px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-align: center;
+}
+
 .zum-whatsapp-float {
   position: absolute;
   z-index: calc(var(--zum-z-nav) + 1);
@@ -858,6 +890,30 @@ body.zum-pano-locked #viewer {
   background: linear-gradient(135deg, var(--zum-red), var(--zum-red-bright));
 }
 
+.zum-skin--mobile .zum-controls {
+  top: 50%;
+  right: calc(13px + var(--zum-safe-right));
+  gap: 8px;
+}
+
+.zum-skin--mobile .zum-controls .zum-icon-btn {
+  width: 54px;
+  height: 54px;
+  flex-basis: 54px;
+  border-radius: 18px;
+  background: rgba(3, 3, 3, 0.82);
+  box-shadow: 0 11px 26px rgba(0, 0, 0, 0.3);
+}
+
+.zum-skin--mobile .zum-controls .zum-icon-btn svg {
+  width: 23px;
+  height: 23px;
+}
+
+.zum-skin--mobile .zum-controls .zum-audio-toggle.is-audio-off {
+  background: rgba(119, 10, 18, 0.9);
+}
+
 .zum-skin--mobile .zum-hero-card {
   top: calc(82px + var(--zum-safe-top));
   left: calc(10px + var(--zum-safe-left));
@@ -1035,6 +1091,17 @@ body.zum-pano-locked #viewer {
     width: 44px;
     height: 44px;
     flex-basis: 44px;
+  }
+
+  .zum-skin--mobile .zum-controls {
+    right: calc(8px + var(--zum-safe-right));
+  }
+
+  .zum-skin--mobile .zum-controls .zum-icon-btn {
+    width: 50px;
+    height: 50px;
+    flex-basis: 50px;
+    border-radius: 16px;
   }
 
   .zum-skin--mobile .zum-hero-card {

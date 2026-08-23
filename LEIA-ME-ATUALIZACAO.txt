@@ -1,5 +1,5 @@
 ZUM MOTORS — ATUALIZAÇÃO DA SKIN 360°
-Versão: 1.0.2
+Versão: 1.0.3
 Data: 22/08/2026
 
 FINALIDADE
@@ -47,6 +47,16 @@ AJUSTES DA VERSÃO 1.0.2
 - O logotipo Exata Engenharia e Perícias foi adicionado de forma discreta no canto
   inferior esquerdo, com posicionamento próprio para desktop, celular e paisagem.
 
+AJUSTES DA VERSÃO 1.0.3
+- Novo botão lateral para ligar e desligar todo o áudio do tour.
+- O botão de áudio aparece no desktop e no celular e acompanha o estado nativo
+  de áudio do 3DVista, inclusive quando o visitante responde à pergunta inicial.
+- Novo botão para ativar o modo VR nativo do 3DVista.
+- O botão VR aparece exclusivamente na experiência mobile.
+- No desktop, a coluna lateral preserva tela cheia, localização e avaliação,
+  recebendo o novo botão de áudio.
+- No celular, a coluna lateral contém somente áudio e VR para manter a navegação leve.
+
 TESTES MÍNIMOS APÓS A PUBLICAÇÃO
 - Desktop Chrome: abrir o tour e todos os cinco ambientes.
 - iPhone Safari: testar retrato e paisagem, com as barras do Safari visíveis e recolhidas.
@@ -57,6 +67,8 @@ TESTES MÍNIMOS APÓS A PUBLICAÇÃO
 - Confirmar que áudio e vídeo só iniciam depois da interação do visitante.
 - Confirmar que o cartão inicial desaparece após 15 segundos e não reaparece ao trocar de ambiente.
 - Confirmar que o logotipo Exata não encobre a barra de ambientes no desktop nem no celular.
+- Confirmar que o botão de áudio alterna entre ligado e desligado e atualiza o ícone.
+- Confirmar que o botão VR aparece somente no celular e inicia a interface nativa do 3DVista.
 
 ROLLBACK
 Se houver qualquer problema, restaure a cópia de segurança feita antes da atualização.
