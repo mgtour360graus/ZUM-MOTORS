@@ -243,6 +243,12 @@ body.zum-pano-locked #viewer {
   pointer-events: auto;
 }
 
+.zum-hero-card.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-18px);
+}
+
 .zum-hero-card::before {
   content: "";
   position: absolute;
@@ -399,6 +405,24 @@ body.zum-pano-locked #viewer {
   width: 46px;
   height: 46px;
   object-fit: contain;
+}
+
+.zum-credit-logo {
+  position: absolute;
+  z-index: calc(var(--zum-z-nav) - 1);
+  left: calc(22px + var(--zum-safe-left));
+  bottom: calc(24px + var(--zum-safe-bottom));
+  width: 128px;
+  opacity: 0.44;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 9px rgba(0, 0, 0, 0.72));
+  transition: opacity 180ms ease, transform 220ms ease;
+}
+
+.zum-credit-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .zum-ui-shield {
@@ -684,7 +708,8 @@ body.zum-pano-locked #viewer {
 .is-ui-blocked .zum-bottom-dock,
 .is-ui-blocked .zum-whatsapp-float,
 .is-ui-blocked .zum-controls,
-.is-ui-blocked .zum-hero-card {
+.is-ui-blocked .zum-hero-card,
+.is-ui-blocked .zum-credit-logo {
   opacity: 0;
   pointer-events: none;
 }
@@ -699,6 +724,10 @@ body.zum-pano-locked #viewer {
 
 .is-ui-blocked .zum-whatsapp-float {
   transform: translateY(18px) scale(0.94);
+}
+
+.is-ui-blocked .zum-credit-logo {
+  transform: translateY(12px);
 }
 
 .has-sellers .zum-topbar,
@@ -730,9 +759,21 @@ body.zum-pano-locked #viewer {
   transform: translateY(16px) scale(0.9);
 }
 
+.zum-skin.is-entering .zum-credit-logo {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
 .zum-topbar,
-.zum-hero-card {
+.zum-hero-card,
+.zum-credit-logo {
   transition: opacity 220ms ease, transform 240ms ease;
+}
+
+@media (max-width: 1120px) and (min-width: 761px) {
+  .zum-skin--desktop .zum-credit-logo {
+    bottom: calc(104px + var(--zum-safe-bottom));
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -817,6 +858,39 @@ body.zum-pano-locked #viewer {
   background: linear-gradient(135deg, var(--zum-red), var(--zum-red-bright));
 }
 
+.zum-skin--mobile .zum-hero-card {
+  top: calc(82px + var(--zum-safe-top));
+  left: calc(10px + var(--zum-safe-left));
+  width: min(330px, calc(100vw - 20px - var(--zum-safe-left) - var(--zum-safe-right)));
+  padding: 17px;
+  border-radius: 21px;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.zum-skin--mobile .zum-hero-card::before {
+  border-radius: 21px 0 0 21px;
+}
+
+.zum-skin--mobile .zum-eyebrow {
+  font-size: 9.5px;
+}
+
+.zum-skin--mobile .zum-hero-title {
+  margin: 10px 0 8px;
+  font-size: clamp(25px, 8vw, 30px);
+}
+
+.zum-skin--mobile .zum-hero-text {
+  max-width: 31ch;
+  font-size: 12.5px;
+  line-height: 1.42;
+}
+
+.zum-skin--mobile .zum-hero-card.is-leaving {
+  transform: translateY(-12px);
+}
+
 .zum-skin--mobile .zum-bottom-dock {
   left: calc(8px + var(--zum-safe-left));
   right: calc(8px + var(--zum-safe-right));
@@ -870,6 +944,13 @@ body.zum-pano-locked #viewer {
 .zum-skin--mobile .zum-whatsapp-float img {
   width: 39px;
   height: 39px;
+}
+
+.zum-skin--mobile .zum-credit-logo {
+  left: calc(12px + var(--zum-safe-left));
+  bottom: calc(90px + var(--zum-safe-bottom));
+  width: 86px;
+  opacity: 0.4;
 }
 
 .zum-skin--mobile .zum-side-panel {
@@ -956,6 +1037,33 @@ body.zum-pano-locked #viewer {
     flex-basis: 44px;
   }
 
+  .zum-skin--mobile .zum-hero-card {
+    top: calc(68px + var(--zum-safe-top));
+    width: min(190px, calc(100vw - 88px - var(--zum-safe-left) - var(--zum-safe-right)));
+    padding: 11px 12px;
+    border-radius: 18px;
+  }
+
+  .zum-skin--mobile .zum-hero-card::before {
+    border-radius: 18px 0 0 18px;
+  }
+
+  .zum-skin--mobile .zum-hero-title {
+    margin: 7px 0 6px;
+    font-size: 19px;
+  }
+
+  .zum-skin--mobile .zum-hero-text {
+    font-size: 9.5px;
+    line-height: 1.32;
+  }
+
+  .zum-skin--mobile .zum-eyebrow {
+    gap: 6px;
+    font-size: 8px;
+    letter-spacing: 0.12em;
+  }
+
   .zum-skin--mobile .zum-bottom-dock {
     left: calc(8px + var(--zum-safe-left));
     right: calc(70px + var(--zum-safe-right));
@@ -975,6 +1083,12 @@ body.zum-pano-locked #viewer {
     bottom: calc(8px + var(--zum-safe-bottom));
     width: 54px;
     height: 54px;
+  }
+
+  .zum-skin--mobile .zum-credit-logo {
+    left: calc(10px + var(--zum-safe-left));
+    bottom: calc(74px + var(--zum-safe-bottom));
+    width: 78px;
   }
 
   .zum-skin--mobile .zum-side-panel {

@@ -2,10 +2,12 @@
   "use strict";
 
   const CONFIG = {
-    version: "1.0.1",
+    version: "1.0.2",
     assetsBase: "skin-zum/assets/",
     logo: "logo-zum.png",
+    creditLogo: "logo-exata.png",
     whatsappIcon: "whatsapp.png",
+    introCardDuration: 15000,
 
     links: {
       site: "https://lucaszum.com.br/",
@@ -79,6 +81,9 @@
     modalOpen: false,
     mobileOpen: false,
     toastTimer: null,
+    introCardTimer: null,
+    introCardRemovalTimer: null,
+    introCardDismissed: false,
     previousFocus: null,
     viewportTimer: null,
     navigationToken: 0,
@@ -162,10 +167,11 @@
     root.dataset.version = CONFIG.version;
 
     root.appendChild(buildTopbar());
-    if (state.mode === "desktop") root.appendChild(buildHero());
+    root.appendChild(buildHero());
     root.appendChild(buildBottomDock());
     if (state.mode === "desktop") root.appendChild(buildControls());
     root.appendChild(buildWhatsappButton());
+    root.appendChild(buildCreditLogo());
     root.appendChild(buildInteractionShield());
     root.appendChild(buildSellersPanel());
     root.appendChild(buildModal());
@@ -177,6 +183,7 @@
     bindGlobalEvents(root);
     bindTourLifecycle();
     syncUiState();
+    startIntroCardTimer();
 
     window.requestAnimationFrame(function () {
       root.classList.remove("is-entering");
@@ -256,13 +263,34 @@
   }
 
   function buildHero() {
-    return createEl(
+    const hero = createEl(
       "section",
       "zum-hero-card",
       '<span class="zum-eyebrow">Showroom virtual</span>' +
         '<h1 class="zum-hero-title">Explore a <span>loja</span> e o estoque</h1>' +
         '<p class="zum-hero-text">Navegue pelos ambientes da Zum Motors e fale com um vendedor direto pelo WhatsApp.</p>'
     );
+    hero.setAttribute("aria-label", "Apresentação do showroom virtual");
+    return hero;
+  }
+
+  function startIntroCardTimer() {
+    window.clearTimeout(state.introCardTimer);
+    state.introCardTimer = window.setTimeout(dismissIntroCard, CONFIG.introCardDuration);
+  }
+
+  function dismissIntroCard() {
+    if (state.introCardDismissed) return;
+    state.introCardDismissed = true;
+    window.clearTimeout(state.introCardTimer);
+
+    const hero = document.querySelector(".zum-hero-card");
+    if (!hero) return;
+    hero.setAttribute("aria-hidden", "true");
+    hero.classList.add("is-leaving");
+    state.introCardRemovalTimer = window.setTimeout(function () {
+      hero.hidden = true;
+    }, 460);
   }
 
   function buildBottomDock() {
@@ -322,6 +350,16 @@
     button.setAttribute("aria-expanded", "false");
     button.addEventListener("click", toggleSellersPanel);
     return button;
+  }
+
+  function buildCreditLogo() {
+    const credit = createEl(
+      "div",
+      "zum-credit-logo",
+      '<img src="' + asset(CONFIG.creditLogo) + '" alt="Exata Engenharia e Perícias">'
+    );
+    credit.setAttribute("aria-label", "Exata Engenharia e Perícias");
+    return credit;
   }
 
   function buildInteractionShield() {

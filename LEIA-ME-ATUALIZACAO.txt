@@ -1,5 +1,5 @@
 ZUM MOTORS — ATUALIZAÇÃO DA SKIN 360°
-Versão: 1.0.1
+Versão: 1.0.2
 Data: 22/08/2026
 
 FINALIDADE
@@ -22,6 +22,7 @@ ESTRUTURA NOVA
 - skin-zum/skin-zum.css
 - skin-zum/skin-zum.js
 - skin-zum/assets/logo-zum.png
+- skin-zum/assets/logo-exata.png
 - skin-zum/assets/whatsapp.png
 - skin-zum/manifest.json
 
@@ -39,6 +40,13 @@ CENAS LIGADAS AO MENU
 - Coffee: índice 12
 - Estoque: índice 20
 
+AJUSTES DA VERSÃO 1.0.2
+- O cartão "Explore a loja e o estoque" aparece na inicialização do tour.
+- O cartão permanece por 15 segundos, desaparece com transição suave e não volta
+  ao trocar de ambiente. Ele só aparece novamente em uma nova inicialização da página.
+- O logotipo Exata Engenharia e Perícias foi adicionado de forma discreta no canto
+  inferior esquerdo, com posicionamento próprio para desktop, celular e paisagem.
+
 TESTES MÍNIMOS APÓS A PUBLICAÇÃO
 - Desktop Chrome: abrir o tour e todos os cinco ambientes.
 - iPhone Safari: testar retrato e paisagem, com as barras do Safari visíveis e recolhidas.
@@ -47,6 +55,8 @@ TESTES MÍNIMOS APÓS A PUBLICAÇÃO
 - Abrir e fechar atendimento, mapa e estoque.
 - Confirmar que o fundo não recebe toques quando uma janela estiver aberta.
 - Confirmar que áudio e vídeo só iniciam depois da interação do visitante.
+- Confirmar que o cartão inicial desaparece após 15 segundos e não reaparece ao trocar de ambiente.
+- Confirmar que o logotipo Exata não encobre a barra de ambientes no desktop nem no celular.
 
 ROLLBACK
 Se houver qualquer problema, restaure a cópia de segurança feita antes da atualização.
