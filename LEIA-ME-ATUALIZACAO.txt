@@ -1,0 +1,52 @@
+ZUM MOTORS — ATUALIZAÇÃO DA SKIN 360°
+Versão: 1.0.1
+Data: 22/08/2026
+
+FINALIDADE
+Este pacote atualiza o tour 3DVista com a skin aprovada da Zum Motors.
+
+REGRA IMPORTANTE SOBRE A PASTA MEDIA
+A pasta "media" não está incluída neste ZIP porque ela já se encontra no servidor.
+Não apague, não renomeie e não substitua a pasta "media" existente durante a atualização.
+
+COMO ATUALIZAR
+1. Faça uma cópia de segurança privada da pasta atual do tour no servidor.
+2. Envie este ZIP para a raiz da pasta atual do tour.
+3. Extraia o conteúdo nessa raiz, mantendo os mesmos nomes e caminhos.
+4. Autorize a substituição dos arquivos com o mesmo nome.
+5. Preserve integralmente a pasta "media" já existente.
+6. Limpe somente o cache do navegador ou da CDN, caso exista.
+7. Teste o arquivo index.htm em uma janela anônima antes de divulgar o link.
+
+ESTRUTURA NOVA
+- skin-zum/skin-zum.css
+- skin-zum/skin-zum.js
+- skin-zum/assets/logo-zum.png
+- skin-zum/assets/whatsapp.png
+- skin-zum/manifest.json
+
+ARQUIVO PRINCIPAL ATUALIZADO
+- index.htm
+
+ARQUIVOS DO NÚCLEO 3DVISTA
+Os arquivos script.js, script_general.js, script_mobile.js e a biblioteca do player
+foram preservados conforme a publicação original do 3DVista.
+
+CENAS LIGADAS AO MENU
+- Vista Aérea: índice 0
+- Fachada: índice 4
+- Showroom: índice 8
+- Coffee: índice 12
+- Estoque: índice 20
+
+TESTES MÍNIMOS APÓS A PUBLICAÇÃO
+- Desktop Chrome: abrir o tour e todos os cinco ambientes.
+- iPhone Safari: testar retrato e paisagem, com as barras do Safari visíveis e recolhidas.
+- iPhone Chrome: repetir os principais fluxos.
+- Android Chrome: testar menu, panorâmica e janelas.
+- Abrir e fechar atendimento, mapa e estoque.
+- Confirmar que o fundo não recebe toques quando uma janela estiver aberta.
+- Confirmar que áudio e vídeo só iniciam depois da interação do visitante.
+
+ROLLBACK
+Se houver qualquer problema, restaure a cópia de segurança feita antes da atualização.

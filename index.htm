@@ -38,11 +38,13 @@
 	<meta name="twitter:image" content="https://mgtour360graus.github.io/ZUM-MOTORS/socialThumbnail.jpg?v=1787446282370"/>
 	<script src="scorm.js" type="text/javascript"></script>
 	<meta name="description" content="Virtual Tour"/>
-	<meta name="theme-color" content="#FFFFFF"/>
+	<meta name="theme-color" content="#030303"/>
     <script src="script.js?v=1787446282370"></script>
+    <link rel="stylesheet" href="skin-zum/skin-zum.css?v=1.0.1" data-zum-skin-css="true"/>
     <style type="text/css">
-        html, body { height:100%; width:100%; height:100vh; width:100vw; margin:0; padding:0; overflow:hidden; }
-        .fill-viewport { position:fixed; top:0; left:0; right:0; bottom:0; padding:0; margin:0; overflow: hidden; }
+        html { height:100%; min-height:-webkit-fill-available; background:#030303; }
+        body { min-height:100%; min-height:100svh; min-height:100dvh; width:100%; margin:0; padding:0; overflow:hidden; background:#030303; }
+        .fill-viewport { position:fixed; inset:0; height:100%; height:100svh; height:100dvh; padding:0; margin:0; overflow:hidden; }
         .fill-viewport.landscape-left { left: env(safe-area-inset-left); }
 		.fill-viewport.landscape-right { right: env(safe-area-inset-right); }
         #viewer { z-index:1; }
@@ -53,5 +55,6 @@
 <body>
     <div id="preloadContainer" class="fill-viewport"><div style="z-index: 4; position: absolute; overflow: hidden; left: 0%; top: 50%; width: 100.00%; height: 10.00%" ><div style="text-align:left; color:#000; "><DIV STYLE="text-align:center;font-size:1.6666666666666665vmin;"><SPAN STYLE="display:inline-block; letter-spacing:0vmin; white-space:pre-wrap;color:#777777;font-size:1.67vmin;font-family:Arial, Helvetica, sans-serif;">Carregando o Tour 360 Graus</SPAN></DIV></div></div></div>
     <div id="viewer" class="fill-viewport"></div>
+    <script src="skin-zum/skin-zum.js?v=1.0.1" defer></script>
 </body>
 </html>

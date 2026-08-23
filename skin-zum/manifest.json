@@ -1,0 +1,35 @@
+{
+  "name": "Zum Motors 360 Skin",
+  "version": "1.0.1",
+  "date": "2026-08-22",
+  "desktopAndMobileSeparated": true,
+  "preserves3DVistaCore": true,
+  "mediaFolderIncluded": false,
+  "environments": [
+    {
+      "name": "Vista Aérea",
+      "index": 0,
+      "panorama": "panorama_20BB46BE_2BBC_D7BE_41C5_4BE70542123E"
+    },
+    {
+      "name": "Fachada",
+      "index": 4,
+      "panorama": "panorama_20BC2C7D_2BBD_5AC2_4194_9842E48300CC"
+    },
+    {
+      "name": "Showroom",
+      "index": 8,
+      "panorama": "panorama_20BB7007_2BBD_CA4E_41B8_88179BD4096E"
+    },
+    {
+      "name": "Coffee",
+      "index": 12,
+      "panorama": "panorama_20BC4155_2BBD_4AC2_41C2_FA15DB268AFB"
+    },
+    {
+      "name": "Estoque",
+      "index": 20,
+      "panorama": "panorama_20C4472C_2BC3_5642_41B0_E0B2F1F6C432"
+    }
+  ]
+}
