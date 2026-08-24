@@ -1025,14 +1025,18 @@ body.zum-pano-locked #viewer {
 }
 
 .zum-skin--mobile .zum-map-modal {
-  padding: 6px;
+  padding:
+    calc(6px + var(--zum-safe-top))
+    calc(6px + var(--zum-safe-right))
+    calc(6px + var(--zum-safe-bottom))
+    calc(6px + var(--zum-safe-left));
 }
 
 .zum-skin--mobile .zum-map-card {
   width: calc(100% - 12px);
-  height: calc(100dvh - 12px);
+  height: calc(100dvh - 12px - var(--zum-safe-top) - var(--zum-safe-bottom));
   max-width: calc(100% - 12px);
-  max-height: calc(100dvh - 12px);
+  max-height: calc(100dvh - 12px - var(--zum-safe-top) - var(--zum-safe-bottom));
   border-radius: 18px;
 }
 
@@ -1047,7 +1051,7 @@ body.zum-pano-locked #viewer {
 
 .zum-skin--mobile .zum-toast {
   top: calc(80px + var(--zum-safe-top));
-  width: calc(100vw - 20px);
+  width: calc(100vw - 20px - var(--zum-safe-left) - var(--zum-safe-right));
   font-size: 12px;
 }
 

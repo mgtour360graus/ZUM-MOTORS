@@ -2,7 +2,7 @@
   "use strict";
 
   const CONFIG = {
-    version: "1.0.3",
+    version: "1.0.4",
     assetsBase: "skin-zum/assets/",
     logo: "logo-zum.png",
     creditLogo: "logo-exata.png",
@@ -33,8 +33,8 @@
       {
         id: "fachada",
         nome: "Fachada",
-        index: 4,
-        pano: "panorama_20BC2C7D_2BBD_5AC2_4194_9842E48300CC",
+        index: 1,
+        pano: "panorama_27110995_2BBC_BA42_41C2_D93782C458D2",
         icon: "facade"
       },
       {
@@ -665,10 +665,11 @@
 
   function syncNativeAudioChoice(event) {
     const target = event.target instanceof Element ? event.target : null;
-    if (!target || !/Ativar\s+áudio\?/i.test(document.body.innerText)) return;
+    if (!target) return;
 
     const choice = String(target.textContent || "").trim().toUpperCase();
     if (choice !== "SIM" && choice !== "NÃO") return;
+    if (!/Ativar\s+áudio\?/i.test(document.body.innerText)) return;
 
     const muted = choice === "NÃO";
     window.setTimeout(function () {

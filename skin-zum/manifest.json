@@ -1,7 +1,7 @@
 {
   "name": "Zum Motors 360 Skin",
-  "version": "1.0.3",
-  "date": "2026-08-22",
+  "version": "1.0.4",
+  "date": "2026-08-24",
   "desktopAndMobileSeparated": true,
   "preserves3DVistaCore": true,
   "mediaFolderIncluded": false,
@@ -20,8 +20,8 @@
     },
     {
       "name": "Fachada",
-      "index": 4,
-      "panorama": "panorama_20BC2C7D_2BBD_5AC2_4194_9842E48300CC"
+      "index": 1,
+      "panorama": "panorama_27110995_2BBC_BA42_41C2_D93782C458D2"
     },
     {
       "name": "Showroom",

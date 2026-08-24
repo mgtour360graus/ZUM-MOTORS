@@ -1,6 +1,6 @@
 ZUM MOTORS — ATUALIZAÇÃO DA SKIN 360°
-Versão: 1.0.3
-Data: 22/08/2026
+Versão: 1.0.4
+Data: 24/08/2026
 
 FINALIDADE
 Este pacote atualiza o tour 3DVista com a skin aprovada da Zum Motors.
@@ -35,7 +35,7 @@ foram preservados conforme a publicação original do 3DVista.
 
 CENAS LIGADAS AO MENU
 - Vista Aérea: índice 0
-- Fachada: índice 4
+- Fachada: índice 1 — panorama ZUM / subtítulo FACHADA
 - Showroom: índice 8
 - Coffee: índice 12
 - Estoque: índice 20
@@ -56,6 +56,18 @@ AJUSTES DA VERSÃO 1.0.3
 - No desktop, a coluna lateral preserva tela cheia, localização e avaliação,
   recebendo o novo botão de áudio.
 - No celular, a coluna lateral contém somente áudio e VR para manter a navegação leve.
+
+AJUSTES DA VERSÃO 1.0.4
+- O botão Fachada passou a abrir a segunda cena da sequência geral, índice 1:
+  panorama_27110995_2BBC_BA42_41C2_D93782C458D2.
+- O panorama está identificado no projeto como ZUM, com o subtítulo FACHADA.
+- O mesmo mapeamento atende às experiências desktop e mobile da skin.
+- As referências da skin foram restauradas no index.htm após a nova exportação do 3DVista.
+- O viewport passou a usar unidades dinâmicas modernas, preservando o layout e melhorando
+  o aproveitamento da tela em navegadores móveis com barras visíveis ou recolhidas.
+- As janelas internas e notificações respeitam as áreas seguras de aparelhos com notch.
+- A sincronização do botão de áudio evita uma leitura completa da página em toques comuns,
+  reduzindo trabalho desnecessário durante a navegação da panorâmica.
 
 TESTES MÍNIMOS APÓS A PUBLICAÇÃO
 - Desktop Chrome: abrir o tour e todos os cinco ambientes.
