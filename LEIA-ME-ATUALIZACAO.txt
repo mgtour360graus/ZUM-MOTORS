@@ -68,6 +68,8 @@ AJUSTES DA VERSÃO 1.0.4
 - As janelas internas e notificações respeitam as áreas seguras de aparelhos com notch.
 - A sincronização do botão de áudio evita uma leitura completa da página em toques comuns,
   reduzindo trabalho desnecessário durante a navegação da panorâmica.
+- O contêiner principal impede deslocamentos internos provocados por foco programático,
+  mantendo a interface estável ao abrir, fechar ou alternar controles.
 
 TESTES MÍNIMOS APÓS A PUBLICAÇÃO
 - Desktop Chrome: abrir o tour e todos os cinco ambientes.
