@@ -2,7 +2,7 @@
   "use strict";
 
   const CONFIG = {
-    version: "1.0.4",
+    version: "1.0.5",
     assetsBase: "skin-zum/assets/",
     logo: "logo-zum.png",
     creditLogo: "logo-exata.png",

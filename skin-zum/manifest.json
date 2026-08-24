@@ -1,10 +1,10 @@
 {
   "name": "Zum Motors 360 Skin",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "date": "2026-08-24",
   "desktopAndMobileSeparated": true,
   "preserves3DVistaCore": true,
-  "mediaFolderIncluded": false,
+  "mediaFolderIncluded": true,
   "introCardDurationSeconds": 15,
   "introCardRepeatsOnSceneChange": false,
   "creditLogoAsset": "assets/logo-exata.png",

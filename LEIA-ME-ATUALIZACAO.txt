@@ -1,22 +1,24 @@
-ZUM MOTORS — ATUALIZAÇÃO DA SKIN 360°
-Versão: 1.0.4
+ZUM MOTORS — PROJETO 360° COMPLETO FINAL
+Versão: 1.0.5
 Data: 24/08/2026
 
 FINALIDADE
-Este pacote atualiza o tour 3DVista com a skin aprovada da Zum Motors.
+Este pacote contém o projeto 3DVista completo, com a publicação mais recente do
+motor, as novas posições das setas de transição e a skin aprovada da Zum Motors.
 
 REGRA IMPORTANTE SOBRE A PASTA MEDIA
-A pasta "media" não está incluída neste ZIP porque ela já se encontra no servidor.
-Não apague, não renomeie e não substitua a pasta "media" existente durante a atualização.
+A pasta "media" está incluída neste ZIP completo.
+Ao publicar, envie todo o conteúdo mantendo exatamente os mesmos nomes e caminhos.
+Antes de substituir uma publicação existente, faça uma cópia de segurança privada.
 
-COMO ATUALIZAR
-1. Faça uma cópia de segurança privada da pasta atual do tour no servidor.
-2. Envie este ZIP para a raiz da pasta atual do tour.
-3. Extraia o conteúdo nessa raiz, mantendo os mesmos nomes e caminhos.
-4. Autorize a substituição dos arquivos com o mesmo nome.
-5. Preserve integralmente a pasta "media" já existente.
+COMO PUBLICAR
+1. Faça uma cópia de segurança privada da publicação atual no servidor.
+2. Extraia este ZIP em uma pasta limpa.
+3. Envie todo o conteúdo extraído para a raiz destinada ao tour.
+4. Preserve a estrutura das pastas lib, locale, media, misc e skin-zum.
+5. Não renomeie arquivos internos gerados pelo 3DVista.
 6. Limpe somente o cache do navegador ou da CDN, caso exista.
-7. Teste o arquivo index.htm em uma janela anônima antes de divulgar o link.
+7. Teste o index.htm em uma janela anônima antes de divulgar o link.
 
 ESTRUTURA NOVA
 - skin-zum/skin-zum.css
@@ -31,7 +33,8 @@ ARQUIVO PRINCIPAL ATUALIZADO
 
 ARQUIVOS DO NÚCLEO 3DVISTA
 Os arquivos script.js, script_general.js, script_mobile.js e a biblioteca do player
-foram preservados conforme a publicação original do 3DVista.
+foram preservados conforme a publicação mais recente do 3DVista, incluindo os novos
+ajustes das setas de transição.
 
 CENAS LIGADAS AO MENU
 - Vista Aérea: índice 0
@@ -70,6 +73,14 @@ AJUSTES DA VERSÃO 1.0.4
   reduzindo trabalho desnecessário durante a navegação da panorâmica.
 - O contêiner principal impede deslocamentos internos provocados por foco programático,
   mantendo a interface estável ao abrir, fechar ou alternar controles.
+
+AJUSTES DA VERSÃO 1.0.5
+- O pacote passou a incluir o projeto completo, inclusive lib, locale, media e misc.
+- A skin foi integrada ao index.htm usado com a publicação mais recente do 3DVista.
+- As novas posições das setas e todos os arquivos do motor atual foram preservados.
+- A versão da skin e os parâmetros de cache foram atualizados para 1.0.5.
+- A proteção de altura móvel com 100svh e 100dvh foi mantida sem alterar o layout.
+- O vídeo de abertura gerado pela publicação mais recente do 3DVista foi preservado.
 
 TESTES MÍNIMOS APÓS A PUBLICAÇÃO
 - Desktop Chrome: abrir o tour e todos os cinco ambientes.
